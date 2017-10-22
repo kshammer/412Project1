@@ -77,6 +77,8 @@ for z in range(10):
         print(np.mean(mmrs))
         #adds it to array of averages
         mmrAverages.append(np.mean(mmrs))
-#displays array of mmr averages and the dictionary of players
+#displays array of mmr averages
 print(mmrAverages)
-print(players)
+#displays dictionary
+for k,v in players.items():
+    print(k, v)
