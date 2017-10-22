@@ -24,7 +24,7 @@ amountMatches = 10
 #offset is by how many matches back to start
 mmrAverages = []
 players = {}
-for z in range(3):
+for z in range(10):
     print(z)
     matchIds = []
     mmrs = []
@@ -38,7 +38,7 @@ for z in range(3):
         matchPlayers = []
         for p in range(10):
             try:
-                print(q.json()['players'][p]['account_id'])
+                #print(q.json()['players'][p]['account_id'])
                 matchPlayers.append(q.json()['players'][p]['account_id'])
                 if q.json()['players'][p]['solo_competitive_rank'] is not None and (q.json()['players'][9]['party_id'] == 9 or q.json()['players'][9]['party_id'] is None):
                     #print(q.json()['players'][p]['solo_competitive_rank'])
