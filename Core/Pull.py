@@ -27,7 +27,7 @@ for z in range(10):
             try:
                 print(q.json()['players'][p]['account_id'])
                 if q.json()['players'][p]['account_id'] is not None and q.json()['players'][p]['account_id'] not in players:
-                    
+
                 if q.json()['players'][p]['solo_competitive_rank'] is not None and (q.json()['players'][9]['party_id'] == 9 or q.json()['players'][9]['party_id'] is None):
                     #print(q.json()['players'][p]['solo_competitive_rank'])
                     mmrs.append(q.json()['players'][p]['solo_competitive_rank'])
