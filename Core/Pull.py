@@ -1,14 +1,18 @@
 import requests, time
 import numpy as np
 
-
+#method to add all the players to dictionary
 def addToPlayers(matchPlayers):
+    #loops through all the players
     for p in matchPlayers:
+        #checks to see if players has a value and is already in the dictionary
         if p is not None and p in players:
             for z in matchPlayers:
                 if z is not None:
+                    #adds the list of players to the key
                     players[p].append(z)
         elif p is not None:
+            #if key does not exist add the key and adds value as an empty list
             players[p] = []
             for z in matchPlayers:
                 if z is not None:
@@ -67,7 +71,7 @@ for z in range(10):
         addToPlayers(matchPlayers)
     #prints list of mmrs from the set of matches
     print(mmrs)
-    #sometimes no mmrs are added. 
+    #sometimes no mmrs are added.
     if len(mmrs) > 0:
         #calculates the average mmr from the set of matches
         print(np.mean(mmrs))
