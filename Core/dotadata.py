@@ -1,10 +1,11 @@
 import requests
 import time
 import numpy as np
-from multiprocessing import Process
+import threading
 
 
 class dotadata:
+
 
     def __init__(self, playerID, batches=10, batchsize=10):
         self.id = playerID
@@ -13,8 +14,10 @@ class dotadata:
         self.mmrAverages = []
         self.players = {}
 
+
     def addToPlayers(self, matchPlayers):
         # loops through all the players
+
         for p in matchPlayers:
             # checks to see if players has a value and is already in the dictionary
             if p is not None and p in self.players:
@@ -29,9 +32,10 @@ class dotadata:
                     if z is not None:
                         self.players[p].append(z)
 
+
     def getData(self):
         for z in range(self.batches):
-            print(z)
+            print(str(z) + " THIS IS THE OVERALL Z")
             # stores match ids of all the players in the set of matches
             matchIds = []
             mmrs = []
@@ -66,10 +70,7 @@ class dotadata:
                 # adds the players to the dictionary of players
                 #print("adding to players")
                 self.addToPlayers(matchPlayers)
-                print("getting neighbors")
                 self.getNeighbors(matchPlayers)
-            # prints list of mmrs from the set of matches
-            #print(mmrs)
             # sometimes no mmrs are added.
             if len(mmrs) > 0:
                 # calculates the average mmr from the set of matches
@@ -89,18 +90,18 @@ class dotadata:
         return matchIds
 
     def getNeighbors(self, matchPlayers):
-        size = 5
-        for q in matchPlayers:
-            if q == "<Response [200]>":
-                print("Python is gay")
+        size = 3
+        for t in matchPlayers:
             submatchIds = []
             for z in range(size):
+                print(str(z) + " THIS IS THE NEIGHBORS Z")
+
                 payload = {'limit': size, 'offset': (z * size)}
                 mmrs = []
 
-                if q == self.id:
-                    print(q)
-                    submatchIds = self.getMatches(q, payload, size)
+                if t != self.id and t is not None:
+                    print(t)
+                    submatchIds = self.getMatches(t, payload, size)
                 else:
                     continue
 
