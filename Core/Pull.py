@@ -22,7 +22,7 @@ def addToPlayers(matchPlayers):
 #lobby 1873152
 #amin 130643254
 #bradon 76854778
-steamid = "83615933"
+steamid = "114439140"
 # Amount of matches to pull at a time
 amountMatches = 10
 #limit is how many
