@@ -3,9 +3,13 @@ import csv
 import numpy as np
 import json
 steamid = "83615933"
+
 test = dotadata(steamid, batches=10,batchsize=10)
 print("Starting")
-test.getData()
+try:
+    test.getData()
+except Exception:
+    print("Failed getting data")
 
 print("done and printing out the players dictionary")
 
