@@ -53,12 +53,18 @@ class dotadata:
             # limit is amount of matches pulled offset is how many matches to start from
             payload = {'limit': self.batchsize, 'offset': (z * self.batchsize)}
             # get request
-            matchIds = self.getMatches(self.id, payload, self.batchsize)
+            try:
+                matchIds = self.getMatches(self.id, payload, self.batchsize)
+            except Exception:
+                continue
 
             for i in range(self.batchsize):
                 # get request for each individual match
                 #print("Getting match information")
-                q = requests.get("https://api.opendota.com/api/matches/" + str(matchIds[i]))
+                try:
+                    q = requests.get("https://api.opendota.com/api/matches/" + str(matchIds[i]))
+                except Exception:
+                    continue
                 # array of all the players in the matches
                 matchPlayers = []
                 # goes through all the players
@@ -117,14 +123,20 @@ class dotadata:
 
                 if t != self.id and t is not None:
                     print(t)
-                    submatchIds = self.getMatches(t, payload, size)
+                    try:
+                        submatchIds = self.getMatches(t, payload, size)
+                    except Exception:
+                        continue
                 else:
                     continue
 
                 for i in range(size):
                     if len(submatchIds) == 0:
                         continue
-                    q = requests.get("https://api.opendota.com/api/matches/" + str(submatchIds[i]))
+                    try:
+                        q = requests.get("https://api.opendota.com/api/matches/" + str(submatchIds[i]))
+                    except Exception:
+                        continue
                     submatchPlayers = []
                     for p in range(10):
                         try:
