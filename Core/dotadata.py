@@ -13,24 +13,33 @@ class dotadata:
         self.batchsize = batchsize
         self.mmrAverages = []
         self.players = {}
+        self.playerNumber = 1
 
+    def updatePlayerMMR(self, playerId, mmr):
+        if playerId is not None:
+            if playerId in self.players:
+                self.players[playerId]["mmr"] = mmr
+            else:
+                self.players[playerId] = {}
+                self.players[playerId]["mmr"] = mmr
 
     def addToPlayers(self, matchPlayers):
         # loops through all the players
-
         for p in matchPlayers:
             # checks to see if players has a value and is already in the dictionary
             if p is not None and p in self.players:
                 for z in matchPlayers:
                     if z is not None:
-                        # adds the list of players to the key
-                        self.players[p].append(z)
+                        # keeps track of amount of matches played
+                        self.players[p][z] += 1
             elif p is not None:
                 # if key does not exist add the key and adds value as an empty list
-                self.players[p] = []
+                self.players[p] = {}
+                self.players[p]["number"] = self.playerNumber
+                self.playerNumber += 1
                 for z in matchPlayers:
                     if z is not None:
-                        self.players[p].append(z)
+                        self.players[p][z] = 1
 
 
     def getData(self):
