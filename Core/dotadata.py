@@ -106,7 +106,7 @@ class dotadata:
         return matchIds
 
     def getNeighbors(self, matchPlayers):
-        size = 3
+        size = 4
         for t in matchPlayers:
             submatchIds = []
             for z in range(size):
@@ -133,10 +133,15 @@ class dotadata:
                                 submatchPlayers.append(q.json()['players'][p]['account_id'])
                                 if q.json()['players'][p]['solo_competitive_rank'] is not None:
                                     mmrs.append(q.json()['players'][p]['solo_competitive_rank'])
+                                    self.updatePlayerMMR(q.json()['players'][p]['account_id'], q.json()['players'][p]['solo_competitive_rank'])
                         except Exception:
                             print("Could not parse / caught error")
                     time.sleep(1)
-                    self.addToPlayers(matchPlayers)
+                    try:
+                        matchPlayers.remove(t)
+                    except ValueError:
+                        print("Id not found in match")
+                    self.addToPlayers(submatchPlayers)
                 if len(mmrs) > 0:
                     print(np.mean(mmrs))
                     self.mmrAverages.append(np.mean(mmrs))
