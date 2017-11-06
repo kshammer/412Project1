@@ -31,7 +31,10 @@ class dotadata:
                 for z in matchPlayers:
                     if z is not None:
                         # keeps track of amount of matches played
-                        self.players[p][z] += 1
+                        try:
+                            self.players[p][z] += 1
+                        except KeyError:
+                            self.players[p][z] = 1
             elif p is not None:
                 # if key does not exist add the key and adds value as an empty list
                 self.players[p] = {}

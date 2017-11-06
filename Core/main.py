@@ -1,6 +1,7 @@
 from Core.dotadata import dotadata
 import csv
 import numpy as np
+import json
 steamid = "83615933"
 test = dotadata(steamid, batches=5,batchsize=5)
 print("Starting")
@@ -10,7 +11,7 @@ print("done and printing out the players dictionary")
 
 cool = list(test.players.keys())
 with open("dictionary.text", 'w') as coolFile:
-    coolFile.write(test.players)
+    coolFile.write(json.dumps(test.players))
 with open("nodes.csv", 'w', newline="") as myfile:
     wr = csv.writer(myfile)
     wr.writerow(["Id"])
