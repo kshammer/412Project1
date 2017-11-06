@@ -29,7 +29,7 @@ class dotadata:
             # checks to see if players has a value and is already in the dictionary
             if p is not None and p in self.players:
                 for z in matchPlayers:
-                    if z is not None:
+                    if z is not None and z != p:
                         # keeps track of amount of matches played
                         try:
                             self.players[p][z] += 1
@@ -73,7 +73,7 @@ class dotadata:
                             #print("Checking solo rank")
                             if q.json()['players'][p]['solo_competitive_rank'] is not None:
                                 mmrs.append(q.json()['players'][p]['solo_competitive_rank'])
-                                self.updatePlayerMMR(q.json()['players'][p], q.json()['players'][p]['solo_competitive_rank'])
+                                self.updatePlayerMMR(q.json()['players'][p]['account_id'], q.json()['players'][p]['solo_competitive_rank'])
                     # sometimes random errors will show up with the get request
                     except Exception:
                         print("Could not parse / caught error")
@@ -81,6 +81,10 @@ class dotadata:
                 time.sleep(1)
                 # adds the players to the dictionary of players
                 #print("adding to players")
+                try:
+                    matchPlayers.remove(self.id)
+                except ValueError:
+                    print("Id not found in match")
                 self.addToPlayers(matchPlayers)
                 self.getNeighbors(matchPlayers)
             # sometimes no mmrs are added.
@@ -108,7 +112,7 @@ class dotadata:
             for z in range(size):
                 print(str(z) + " THIS IS THE NEIGHBORS Z")
 
-                payload = {'limit': size, 'offset': (z * size)}
+                payload = {'limit': size, 'offset': (z * size) + 1}
                 mmrs = []
 
                 if t != self.id and t is not None:
