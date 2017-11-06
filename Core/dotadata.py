@@ -13,7 +13,6 @@ class dotadata:
         self.batchsize = batchsize
         self.mmrAverages = []
         self.players = {}
-        self.playerNumber = 1
 
     def updatePlayerMMR(self, playerId, mmr):
         if playerId is not None:
@@ -22,6 +21,7 @@ class dotadata:
             else:
                 self.players[playerId] = {}
                 self.players[playerId]["mmr"] = mmr
+
 
     def addToPlayers(self, matchPlayers):
         # loops through all the players
@@ -35,8 +35,7 @@ class dotadata:
             elif p is not None:
                 # if key does not exist add the key and adds value as an empty list
                 self.players[p] = {}
-                self.players[p]["number"] = self.playerNumber
-                self.playerNumber += 1
+                self.players[p]["mmr"] = 0
                 for z in matchPlayers:
                     if z is not None:
                         self.players[p][z] = 1
@@ -71,6 +70,7 @@ class dotadata:
                             #print("Checking solo rank")
                             if q.json()['players'][p]['solo_competitive_rank'] is not None:
                                 mmrs.append(q.json()['players'][p]['solo_competitive_rank'])
+                                self.updatePlayerMMR(q.json()['players'][p], q.json()['players'][p]['solo_competitive_rank'])
                     # sometimes random errors will show up with the get request
                     except Exception:
                         print("Could not parse / caught error")
