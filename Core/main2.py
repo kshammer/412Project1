@@ -1,13 +1,10 @@
-from Core.dotadata import dotadata
+from Core.dotadatasimple import dotadatasimple
 import csv
 import numpy as np
+
 steamid = "83615933"
-test = dotadata(steamid, batches=10,batchsize=10)
-print("Starting")
+test = dotadatasimple(steamid)
 test.getData()
-
-print("done and printing out the players dictionary")
-
 cool = list(test.players.keys())
 with open("nodes.csv", 'w', newline="") as myfile:
     wr = csv.writer(myfile)
@@ -19,4 +16,3 @@ with open('edgelist.csv', 'w', newline="") as csv_file:
         for per in value:
             writer.writerow(([key], [per]))
 print(np.mean(test.mmrAverages))
-#3159.84613046
